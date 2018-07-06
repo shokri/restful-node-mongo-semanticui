@@ -1,0 +1,63 @@
+<% include ./partials/header %>
+<div class="ui main text container body">
+		
+		
+<div class="ui grid">
+	<div class="ui piled segment">
+
+	    <div class="column">
+	        <div class="ui header"><%= blog.title %></div>
+	    </div>
+
+	    <div class="figurePost">
+	    	<img src="<%= blog.image %>" class="ui huge floated bordered rounded image transition visible">
+			<div class="figcaptionPost">
+							
+			</div>
+	    </div>
+
+	    <span><%= blog.created.toDateString() %></span>
+		<p><%- blog.body %></p>
+
+		<div class="ui form">
+		  <div class="field">
+		    <textarea rows="2" disabled=""></textarea>
+		  </div>
+		  <div class="ui pink basic tiny button addComment">Add Comment</div>
+		</div>
+
+	</div>
+
+
+<div class="ui basic modal" id="deleteModal">
+    <i class="close icon"></i>
+    <div class="header">
+      Archive Old Messages
+  </div>
+  <div class="image content">
+    <div class="image">
+      <i class="archive icon"></i>
+    </div>
+    <div class="description">
+      <p>Your inbox is getting full, would you like us to enable automatic archiving of old messages?</p>
+    </div>
+  </div>
+    <div class="actions">
+    	<div class="two fluid ui inverted buttons">
+          <div class="ui red basic inverted button">
+        	<i class="remove icon"></i>
+        		No
+      		</div>
+	    	<form action="/blogs/<%= blog._id %>?_method=DELETE" method="POST">
+	      		<button class="ui green basic inverted button">
+	        		<i class="checkmark icon"></i>
+	        			Yes
+	      		</button>
+	    	</form>
+    	</div>
+    </div>
+</div>
+
+</div>
+</div>
+<% include ./partials/footer %>

@@ -1,0 +1,24 @@
+<% include ../partials/header %>
+<div class="ui main text container segment">
+	<div class="ui huge header">Register</div>
+	<form class="ui form" action="/auth/register" method="POST">
+		<div class="field">
+			<label>Name</label>
+			<input type="text" name="name" placeholder="yout name ...">
+		</div>
+		<div class="field">
+			<label>email</label>
+			<input type="email" name="email" placeholder="email">
+		</div>
+		<div class="field">
+			<label>Username</label>
+			<input type="text" name="username" placeholder="username">
+		</div>		
+		<div class="field">
+	        <label>Password</label>
+	        <input type="password" name="password" placeholder="password">
+		</div>		
+		<input class="ui small pink basic button" type="submit" value="Sign Up">
+	</form>
+</div>
+<% include ../partials/footer %>

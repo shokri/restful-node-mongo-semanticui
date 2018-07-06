@@ -1,0 +1,30 @@
+<script src="/js/jquery.min.js"></script>
+<script src="/css/semantic.min.js"></script>
+<script>
+$(document).ready(function(){
+
+    $('#logIn').click(function(){
+        $('#modaldiv').modal('show');    
+    });
+
+    $('#signUp').click(function(){
+        $('#modalsignUp').modal({blurring: true}).modal('show');    
+    });
+
+    $('.deleteBlog').click(function() {
+        $('#deleteBlog').modal({blurring: true}).modal('show');
+    });
+
+    $('.deletePost').click(function() {
+        $('.deleteBlogPost').modal({blurring: true}).modal('show');
+    });
+
+    $('.autumn.leaf').transition('pulse');
+    
+    $('.ui.dropdown').dropdown();
+
+});
+</script>
+
+</body>
+</html>

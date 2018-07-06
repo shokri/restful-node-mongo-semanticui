@@ -1,0 +1,169 @@
+<% include ../partials/header %>
+<div class="ui main text container body">
+		
+		
+<div class="ui grid">
+	<div class="ui piled segment">
+
+	    <div class="column">
+	        <div class="ui grid header">
+		        <div class="column fourteen wide left floated" style="padding-top: 0;">
+		        	<%= blog.title %>
+		        </div>
+				<% if (currentUser && blog.author.id.equals(currentUser._id)) { %>
+		    		<div class="ui dropdown column two wide right floated right aligned" style="padding-bottom: 0; padding-right: 0; padding-top: 0;">
+		    			<div class="text">
+		    				<i class="ellipsis vertical large black icon"></i>
+		    			</div>
+		    			<div class="menu">
+	    					<a class="item" href="/blogs/<%= blog._id %>/edit">
+								<i class="edit large icon"></i> Edit Post
+	    					</a>
+	    					<div class="item deleteBlog">
+								<i class="delete large icon"></i> Remove Post
+	    					</div>
+	    				</div>
+		    		</div>					
+				<% } %>
+	        </div>
+	    </div>
+
+	    <div class="figurePost">
+	    	<img src="<%= blog.image %>" class="ui huge floated bordered rounded image transition visible">
+			<div class="figcaptionPost">
+							
+			</div>
+	    </div>
+
+	    <span><em><%= moment %></em></span>
+		<p><%- blog.body %></p>
+
+<div class="ui comments list">
+  <h3 class="ui dividing header">Comments</h3>
+
+	
+	<% blog.comments.forEach(function(comment){ %>
+	  <div class="comment item">
+
+	    <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
+		    <div class="right floated content">
+		      <a href="/blogs/<%= blog._id %>/comment/<%= comment._id %>/edit">
+		      	<i class="write mini circular icon"></i>
+		      </a>
+			  <a class="item deletePost">
+				  <i class="delete mini circular icon"></i>
+			  </a>
+		    </div>
+	    <% } %>
+
+	    <a class="avatar">
+	      <img src="/images/avatar/small/joe.jpg">
+	    </a>
+	    <div class="content">
+	      <a class="author"><%= comment.author.username %></a>
+	      <div class="metadata">
+	        <span class="date">2 hours ago</span>
+	      </div>
+	      <div class="text">
+	        <%= comment.text %>
+	      </div>
+	      <div class="actions">
+	        <a class="reply">Reply</a>
+	      </div>
+	    </div>
+	  </div>
+
+	<!-- delete comment -->
+	<div class="ui basic modal deleteBlogPost">
+	  <i class="close icon"></i>
+	  <div class="header">
+	    Warning Delete Comment
+	  </div>
+	  <div class="image content">
+	    <div class="image">
+	      <i class="archive icon"></i>
+	    </div>
+	    <div class="description">
+	      <p>Do you want to delete your comment?</p>
+	    </div>
+	  </div>
+	  <div class="actions">
+	    	<form action="/blogs/<%= blog._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+	    <div class="two fluid ui inverted buttons">
+	      <div class="ui cancel red basic inverted button">
+	        <i class="remove icon"></i>
+	        No
+	      </div>
+	  		<button class="ui green basic inverted button">
+	    		<i class="checkmark icon"></i>
+	    			Yes
+	  		</button>
+	    	</form>
+	    </div>
+	  </div>
+	</div>
+
+	<%	})	%>	
+
+	<% if(currentUser){ %>
+	  <form class="ui reply form" action="/blogs/<%= blog._id %>" method="POST">
+	    <div class="field">
+	      <textarea rows="2" name="comment[text]"></textarea>
+	    </div>
+	    <button class="ui pink labeled submit icon button">
+	      <i class="icon edit"></i> Add Reply
+	    </button>
+	  </form>
+	<% }else{ %>
+		<div class="ui visible message">
+		  <p class="">You must <a href="/auth/login">Loggin</a> before commenting</p>
+		</div>
+	<% } %>
+	</div>
+
+<% if(currentUser){ %>
+<!-- delete post -->
+<div class="ui basic modal" id="deleteBlog">
+  <i class="close icon"></i>
+  <div class="header">
+    Warning Delete Post
+  </div>
+  <div class="image content">
+    <div class="image">
+      <i class="archive icon"></i>
+    </div>
+    <div class="description">
+      <p>Do yout want to delete your post?</p>
+    </div>
+  </div>
+  <div class="actions">
+    	<form action="/blogs/<%= blog._id %>?_method=DELETE" method="POST">
+    <div class="two fluid ui inverted buttons">
+      <div class="ui cancel red basic inverted button">
+        <i class="remove icon"></i>
+        No
+      </div>
+  		<button class="ui green basic inverted button">
+    		<i class="checkmark icon"></i>
+    			Yes
+  		</button>
+    	</form>
+    </div>
+  </div>
+</div>
+
+<% }else{ %>
+	<div class="ui modal" id="deleteModal">
+	  <i class="close icon"></i>
+	  <div class="content">
+	    <div class="description">
+	      <div class="ui header">You must Logged in</div>
+	      <p>if you want to delete this post you must <a href="/auth/login">Logged</a> </p>
+	    </div>
+	  </div>
+	</div>
+<% } %>
+
+</div>
+</div>
+<% include ../partials/footer %>
